@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
   let!(:user) { create(:user) }
@@ -6,30 +6,29 @@ RSpec.describe 'Users API', type: :request do
 
   before { host! 'api.task-manager.dev' }
 
-  describe "GET /user/:id" do
+  describe 'GET /user/:id' do
     before do
       headers = { 'Accept' => 'application/vnd.taskmanager.v1' }
       get "/users/#{user_id}", params: {}, headers: headers
     end
 
-    context "when the user exists" do
-      it "return the user" do
+    context 'when the user exists' do
+      it 'return the user' do
         user_response = JSON.parse(response.body)
         expect(user_response['id']).to eq(user_id)
       end
 
-      it "return status 200 OK" do
+      it 'return status 200 OK' do
         expect(response).to have_http_status(200)
       end
     end
 
-    context "when user does not exists" do
-      let(:user_id) { 10000 }
+    context 'when user does not exists' do
+      let(:user_id) { 10_000 }
 
-      it "return status code 404" do
+      it 'return status code 404' do
         expect(response).to have_http_status(404)
       end
     end
   end
-
 end
