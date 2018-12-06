@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
+  before { host! 'api.task-manager.dev' }
+  
   let!(:user) { create(:user) }
   let(:user_id) { user.id }
   let(:headers) do
@@ -9,8 +11,6 @@ RSpec.describe 'Users API', type: :request do
       'Content-Type' => Mime[:json].to_s
     }
   end
-
-  before { host! 'api.task-manager.dev' }
 
   describe 'GET /user/:id' do
     before do
