@@ -13,7 +13,19 @@ RSpec.describe 'Sessions API', type: :request do
 
   describe "POST /sessions" do
     before do
-      post '/sessions', params: { session: credentials.to_json }, headers: headers
+      post '/sessions', params: { session: credentials }.to_json, headers: headers
+    end
+
+    context "when valid credentials" do
+      let(:credentials) { { email: user.email, password: '123123123' } }
+
+      it "returns status code 200" do
+        expect(response).to have_http_status(200)
+      end
+
+      it "returns the json data for the user with auth token" do
+        expect(json_body[:auth_token]).to eq(user.auth_token)
+      end
     end
   end
 end
