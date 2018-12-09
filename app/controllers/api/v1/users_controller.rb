@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_with_token!, only: [:update, :destroy]
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show]
   respond_to :json
 
   def show
@@ -17,15 +17,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      render json: @user
+    user = current_user
+    if user.update(user_params)
+      render json: user
     else
-      render json: { errors: @user.errors }, status: :unprocessable_entity
+      render json: { errors: user.errors }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @user.destroy
+    current_user.destroy
     head 204
   end
 
