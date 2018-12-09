@@ -7,16 +7,16 @@ RSpec.describe Authenticable do
 
   let(:app_controller) { subject } # in this case, subject is the controller
 
-  describe ".current_user" do
+  describe '.current_user' do
     let(:user) { create(:user) }
 
     before do
-
+      req = double(headers: { 'Authorization' => user.auth_token })
+      allow(app_controller).to receive(:request).and_return(req)
     end
 
-    it "returns the user from the Authorization header" do
-      # expect(app_controller.current_user).to eq(user)
+    it 'returns the user from the Authorization header' do
+      expect(app_controller.current_user).to eq(user)
     end
-
   end
 end
