@@ -20,6 +20,15 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def update
+    task = current_user.tasks.find(params[:id])
+    if task.update(task_params)
+      render json: task
+    else
+      render json: { errors: task.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def task_params
