@@ -3,7 +3,7 @@ class Api::V2::TasksController < ApplicationController
 
   def index
     tasks = current_user.tasks
-    render json: { tasks: tasks }
+    render json: tasks
   end
 
   def show
