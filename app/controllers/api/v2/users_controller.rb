@@ -1,10 +1,9 @@
 class Api::V2::UsersController < ApplicationController
   before_action :authenticate_with_token!, only: [:update, :destroy]
   before_action :set_user, only: [:show]
-  respond_to :json
 
   def show
-    respond_with @user
+    render json: @user
   end
 
   def create
