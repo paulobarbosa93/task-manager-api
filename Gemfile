@@ -27,7 +27,7 @@ gem 'rack-cors'
 gem "sprockets", ">= 3.7.2"
 
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.18'
 end
 
 group :development, :test do
